@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { FAQS } from "@/lib/home-content";
 
@@ -19,10 +20,17 @@ export default function Faq() {
       </h2>
       <div className="glass mx-auto max-w-3xl px-6 sm:px-8">
         <Accordion type="single" collapsible className="relative z-10">
-          {FAQS.map(({ q, a }) => (
+          {FAQS.map(({ q, a, link }) => (
             <AccordionItem key={q} value={q}>
               <AccordionTrigger>{q}</AccordionTrigger>
-              <AccordionContent>{a}</AccordionContent>
+              <AccordionContent>
+                {a}
+                {link && (
+                  <Link href={link.href} className="mt-3 block font-semibold text-cyan-brand hover:underline">
+                    {link.label}
+                  </Link>
+                )}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -57,13 +57,16 @@ export const FAQS = [
   {
     q: "Is SkillPrep free for students?",
     a: "Full access is unlocked through your college's licence. Early access signups are free. Join the waitlist to be notified.",
+    link: { href: "/for-students#early-access", label: "Join the waitlist" },
   },
   {
     q: "How can my college partner with SkillPrep?",
     a: "Use the For Colleges page to request a demo. We onboard your cohort and give your placement cell a readiness dashboard.",
+    link: { href: "/for-colleges#partner", label: "Request a demo" },
   },
   {
     q: "When does SkillPrep launch?",
     a: "Rolling out now with early partner colleges. Join early access to get in first.",
+    link: { href: "/for-students#early-access", label: "Get early access" },
   },
 ];
