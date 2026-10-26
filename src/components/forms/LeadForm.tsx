@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle } from "@phosphor-icons/react";
+import { toast } from "sonner";
 import { SCHEMAS, type FormKind } from "@/lib/schemas";
 
 type Field = { name: string; label: string; type?: string; autoComplete?: string; textarea?: boolean; optional?: boolean };
@@ -45,8 +46,9 @@ export default function LeadForm({ kind }: { kind: FormKind }) {
   const { fields, submit, success } = CONFIG[kind];
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
     const parsed = SCHEMAS[kind].safeParse(data);
@@ -57,8 +59,21 @@ export default function LeadForm({ kind }: { kind: FormKind }) {
       return;
     }
     setErrors({});
-    // TODO(step 7): POST parsed.data to /api/<kind> -> Supabase insert; handle server errors and show a toast.
-    setDone(true);
+    setSending(true);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind, data: parsed.data, company: data.company ?? "" }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      toast.success(success);
+      setDone(true);
+    } catch {
+      toast.error("We couldn't send that. Please try again in a moment.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (done) {
@@ -72,6 +87,12 @@ export default function LeadForm({ kind }: { kind: FormKind }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
+      {/* Honeypot: hidden from people and assistive tech; bots tend to fill it. */}
+      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Company <input type="text" name="company" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       {fields.map((f) => {
         const id = `${kind}-${f.name}`;
         const err = errors[f.name];
@@ -94,7 +115,9 @@ export default function LeadForm({ kind }: { kind: FormKind }) {
           </div>
         );
       })}
-      <button type="submit" className="btn-primary w-full sm:w-auto">{submit}</button>
+      <button type="submit" disabled={sending} className="btn-primary w-full disabled:opacity-60 sm:w-auto">
+        {sending ? "Sending..." : submit}
+      </button>
     </form>
   );
 }

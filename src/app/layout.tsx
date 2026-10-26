@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter, Barlow_Condensed } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import AmbientBackground from "@/components/ui/AmbientBackground";
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${body.variable} ${stat.variable}`}>
       <body>
         <AmbientBackground />
+        <Toaster theme="dark" position="top-center" />
         <SmoothScroll>
           <Navbar />
           <main>{children}</main>
