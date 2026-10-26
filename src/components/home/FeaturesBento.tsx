@@ -22,11 +22,11 @@ export default function FeaturesBento() {
         </h2>
       </div>
       <ul className="grid gap-4 md:grid-cols-6">
-        {FEATURES.map(({ title, body, Icon, color, span }) => {
+        {FEATURES.map(({ title, href, body, Icon, color, span }) => {
           const tone = TONE[color];
           return (
             <li key={title} className={span}>
-              <Link href="/features" className="glass group flex h-full min-h-[200px] flex-col justify-between p-6 transition-transform hover:-translate-y-1 sm:p-8">
+              <Link href={href} className="glass group flex h-full min-h-[200px] flex-col justify-between p-6 transition-transform hover:-translate-y-1 sm:p-8">
                 <div aria-hidden className={cn("absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl", tone.glow)} />
                 <div className="relative z-10">
                   <Icon size={40} weight="duotone" className={tone.text} />

@@ -3,17 +3,18 @@ import { Brain, Gauge, BookOpen, RocketLaunch, Coins, Toolbox } from "@phosphor-
 
 export const FEATURES: {
   title: string;
+  href: string;
   body: string;
   Icon: Icon;
   color: string; // tailwind text + glow colour
   span: string; // grid column span (6-col grid at md+)
 }[] = [
-  { title: "MIRA", body: "Your always-on AI mentor that reads your gaps and builds your plan.", Icon: Brain, color: "cyan-brand", span: "md:col-span-4" },
-  { title: "Employability Score", body: "A verified readiness index recruiters trust, not just your CGPA.", Icon: Gauge, color: "cyan-brand", span: "md:col-span-2" },
-  { title: "Skill Pathways", body: "3-level courses built for your branch: video, worksheets, simulations.", Icon: BookOpen, color: "purple-bright", span: "md:col-span-2" },
-  { title: "Launchpad", body: "Matched internships and entry roles based on your real score.", Icon: RocketLaunch, color: "coral-brand", span: "md:col-span-2" },
-  { title: "Skillcoins", body: "Earn as you learn; redeem with top youth brands.", Icon: Coins, color: "lime-brand", span: "md:col-span-2" },
-  { title: "Student Toolkit", body: "ATS resume builder, LinkedIn enhancer, AI Tools Tutor, mock interviews.", Icon: Toolbox, color: "blue-brand", span: "md:col-span-6" },
+  { title: "MIRA", href: "/features#mira", body: "Your always-on AI mentor that reads your gaps and builds your plan.", Icon: Brain, color: "cyan-brand", span: "md:col-span-4" },
+  { title: "Employability Score", href: "/features#employability-score", body: "A verified readiness index recruiters trust, not just your CGPA.", Icon: Gauge, color: "cyan-brand", span: "md:col-span-2" },
+  { title: "Skill Pathways", href: "/features#skill-pathways", body: "3-level courses built for your branch: video, worksheets, simulations.", Icon: BookOpen, color: "purple-bright", span: "md:col-span-2" },
+  { title: "Launchpad", href: "/features#launchpad", body: "Matched internships and entry roles based on your real score.", Icon: RocketLaunch, color: "coral-brand", span: "md:col-span-2" },
+  { title: "Skillcoins", href: "/features#skillcoins", body: "Earn as you learn; redeem with top youth brands.", Icon: Coins, color: "lime-brand", span: "md:col-span-2" },
+  { title: "Student Toolkit", href: "/features#toolkit", body: "ATS resume builder, LinkedIn enhancer, AI Tools Tutor, mock interviews.", Icon: Toolbox, color: "blue-brand", span: "md:col-span-6" },
 ];
 
 export const STATS = [
