@@ -32,6 +32,14 @@ const config: Config = {
           "0%,100%": { transform: "translate3d(0,0,0) scale(1)" },
           "50%": { transform: "translate3d(30px,-40px,0) scale(1.08)" },
         },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
@@ -39,6 +47,8 @@ const config: Config = {
       animation: {
         orb: "orb 18s ease-in-out infinite",
         shimmer: "shimmer 2.2s infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
