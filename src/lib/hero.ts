@@ -54,7 +54,7 @@ export const BEATS: Beat[] = [
       kicker: "Launchpad",
       title: "Walk into the interview ready.",
       body: "Practice real interviews, sharpen your resume and build proof of skill before it counts.",
-      href: "/features#launchpad",
+      href: "/for-students",
       cta: "Start on Launchpad",
     },
   },
