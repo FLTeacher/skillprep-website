@@ -35,26 +35,34 @@ export const TESTIMONIALS: Testimonial[] = [
 export const FAQS = [
   {
     q: "What is SkillPrep?",
-    a: "SkillPrep is an AI-native employability platform for Indian colleges and students. It assesses how job-ready a student really is, then guides them to close the gaps with skill pathways, practice and career support.",
-  },
-  {
-    q: "What is the Employability Score?",
-    a: "It is a readiness index built from your skills and how you perform, designed to show recruiters and colleges where you stand beyond CGPA. MIRA, our AI career guide, uses it to recommend your next steps.",
+    a: "An AI-native employability platform that helps Indian college students build real, job-ready skills and earn a verified Employability Score, offered to students through their college.",
   },
   {
     q: "Who is SkillPrep for?",
-    a: "Students who want a clear path from degree to first job, and colleges that want to measure and improve the employability of every student, not only the toppers.",
+    a: "College students who want to be genuinely job-ready, and the colleges and placement cells that want to raise and prove their students' employability.",
   },
   {
-    q: "Is SkillPrep a placement-automation ERP for colleges?",
-    a: "No. SkillPrep is an assessment and upskilling platform. It tells you who is job-ready, who is not and why, and helps students close the gap.",
+    q: "How is SkillPrep different from job portals like Internshala or Naukri?",
+    a: "Those are job boards you use once you're already job-hunting. SkillPrep builds your employability during college, with skills, a verified score and guided prep, so you're ready before you apply.",
   },
   {
-    q: "What are Skillcoins?",
-    a: "Skillcoins are rewards you earn as you learn on SkillPrep. You can redeem them with youth brands.",
+    q: "What is the Employability Score?",
+    a: "A verified readiness index measuring your actual skills across the platform, giving colleges and recruiters a trustworthy signal beyond CGPA.",
   },
   {
-    q: "How do I get early access?",
-    a: "Join the early-access list from the For Students page. Colleges can send a partnership inquiry from the For Colleges page.",
+    q: "Who is MIRA?",
+    a: "SkillPrep's AI career guide. MIRA reads your strengths and gaps, builds a personalised learning plan, and tracks your progress.",
+  },
+  {
+    q: "Is SkillPrep free for students?",
+    a: "Full access is unlocked through your college's licence. Early access signups are free. Join the waitlist to be notified.",
+  },
+  {
+    q: "How can my college partner with SkillPrep?",
+    a: "Use the For Colleges page to request a demo. We onboard your cohort and give your placement cell a readiness dashboard.",
+  },
+  {
+    q: "When does SkillPrep launch?",
+    a: "Rolling out now with early partner colleges. Join early access to get in first.",
   },
 ];
