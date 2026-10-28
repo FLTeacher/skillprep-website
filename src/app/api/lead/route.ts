@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   }
 
   // Honeypot: real users never fill this hidden field. Pretend success so bots learn nothing.
-  if (typeof body.company === "string" && body.company.trim() !== "") {
+  if (typeof body.hp === "string" && body.hp.trim() !== "") {
     return NextResponse.json({ ok: true });
   }
 
