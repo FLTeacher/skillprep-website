@@ -13,9 +13,9 @@ export const metadata = pageMeta({
 
 const PAINS = [
   { title: "Skill mismatch", body: "Students graduate with strong marks but not the skills recruiters screen for, and you only find out at placement time." },
-  { title: "Mock-interview bandwidth", body: "Your team can't give every student a mock interview. Most never get one before the real thing." },
+  { title: "Mock-interview bandwidth", body: "Your team can't give every student a mock interview. Many students reach the real thing without one." },
   { title: "Offer-to-join reneging", body: "Offers don't always turn into joinings. Matching students to roles they are genuinely ready for is where it starts." },
-  { title: "Reporting burden", body: "Accreditation and management want evidence of outcomes. Pulling it together by hand eats weeks." },
+  { title: "Reporting burden", body: "Accreditation and management want evidence of outcomes. Pulling it together by hand takes time your team doesn't have." },
 ];
 
 const IS = ["Assessment of real, demonstrated skills", "Upskilling through branch-specific pathways", "A readiness dashboard for your placement cell"];

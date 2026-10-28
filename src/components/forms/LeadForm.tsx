@@ -119,9 +119,7 @@ export default function LeadForm({ kind }: { kind: FormKind }) {
     <form ref={formRef} method="post" onSubmit={onSubmit} noValidate className="relative space-y-4">
       {/* Honeypot: hidden from people and assistive tech; bots tend to fill it. Name avoids browser autofill matches. */}
       <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label>
-          Leave this empty <input type="text" name="website_url" tabIndex={-1} autoComplete="off" />
-        </label>
+        <input type="text" name="website_url" tabIndex={-1} autoComplete="off" />
       </div>
       {fields.map((f) => {
         const id = `${kind}-${f.name}`;
