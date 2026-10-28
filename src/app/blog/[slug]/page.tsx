@@ -26,11 +26,13 @@ export default function PostPage({ params }: Props) {
       <div className="mt-8 space-y-5 text-purple-muted sm:text-lg">
         {post.body.map((para, i) => (<p key={i}>{para}</p>))}
       </div>
-      <div className="glass mt-12 p-6 sm:p-8">
+      <aside aria-labelledby="post-cta" className="glass mt-12 p-6 sm:p-10">
         <div className="relative z-10">
+          <h2 id="post-cta" className="text-2xl sm:text-3xl">{post.cta.heading}</h2>
+          <p className="mb-6 mt-2 text-purple-muted">{post.cta.text}</p>
           <Link href={post.cta.href} className="btn-primary">{post.cta.label} <ArrowRight weight="bold" /></Link>
         </div>
-      </div>
+      </aside>
     </article>
   );
 }
