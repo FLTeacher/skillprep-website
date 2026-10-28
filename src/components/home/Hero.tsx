@@ -32,12 +32,39 @@ export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [live, setLive] = useState(false); // play video only when motion + data allow; else stills
+  const [mobile, setMobile] = useState(false);
+  const [prev, setPrev] = useState<number | null>(null); // outgoing clip, kept mounted only while it fades out
+  const [onScreen, setOnScreen] = useState(true);
+  const lastActive = useRef(0);
+  const [reached, setReached] = useState(1); // posters are only rendered up to the next beat, so they load as the story advances
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const saveData = (navigator as Navigator & { connection?: NetInfo }).connection?.saveData;
     setLive(!reduce && !saveData);
+
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onMq = () => setMobile(mq.matches);
+    onMq();
+    mq.addEventListener("change", onMq);
+
+    // Stop all video work once the hero has scrolled away.
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { rootMargin: "100px" });
+    if (root.current) io.observe(root.current);
+    return () => {
+      mq.removeEventListener("change", onMq);
+      io.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    if (lastActive.current === active) return;
+    setPrev(lastActive.current);
+    setReached((r) => Math.max(r, active + 1));
+    lastActive.current = active;
+    const t = setTimeout(() => setPrev(null), 800);
+    return () => clearTimeout(t);
+  }, [active]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -61,29 +88,47 @@ export default function Hero() {
     <section ref={root} aria-label="The SkillPrep student journey" className="relative">
       {/* Pinned film layer */}
       <div aria-hidden className="sticky top-0 -mb-[100svh] h-[100svh] w-full overflow-hidden bg-navy-deep">
-        {BEATS.map((b, i) => (
-          <div
-            key={b.id}
-            className={cn(
-              "absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-out",
-              i === active ? "opacity-100" : "opacity-0"
-            )}
-            style={{ backgroundImage: `url(${b.poster})` }}
-          >
-            {live && Math.abs(i - active) <= 1 && (
-              <video
-                src={b.video}
-                poster={b.poster}
-                muted
-                loop
-                autoPlay
-                playsInline
-                preload={i === active ? "auto" : "metadata"}
-                className="h-full w-full object-cover"
-              />
-            )}
-          </div>
-        ))}
+        {BEATS.map((b, i) => {
+          // Phones: only the active clip (plus the one fading out) is mounted. Desktop also prefetches the neighbours.
+          const mounted = live && onScreen && (i === active || i === prev || (!mobile && Math.abs(i - active) <= 1));
+          return (
+            <div
+              key={b.id}
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700 ease-out",
+                i === active ? "opacity-100" : "opacity-0"
+              )}
+            >
+              {/* Poster is the first paint and the stills fallback; lazy past the first beats. */}
+              {i <= reached && (
+              <picture>
+                <source media="(max-width: 767px)" srcSet={b.posterMobile} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={b.poster}
+                  alt=""
+                  loading={i < 2 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </picture>
+              )}
+              {mounted && (
+                <video
+                  src={mobile ? b.videoMobile : b.video}
+                  poster={mobile ? b.posterMobile : b.poster}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload={i === active ? "auto" : "metadata"}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+            </div>
+          );
+        })}
         <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/85 via-navy-deep/35 to-navy-deep/10 max-md:bg-gradient-to-t max-md:from-navy-deep/90 max-md:via-navy-deep/30 max-md:to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-deep to-transparent" />
       </div>

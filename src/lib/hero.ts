@@ -7,10 +7,17 @@ export type Beat = {
   id: string;
   video: string;
   poster: string;
+  videoMobile: string; // 640w, low bitrate, served below the md breakpoint
+  posterMobile: string;
   card?: { kicker: string; title: string; body: string; href: string; cta: string };
 };
 
-const clip = (n: string) => ({ video: `/videos/${n}.mp4`, poster: `/videos/posters/${n}.jpg` });
+const clip = (n: string) => ({
+  video: `/videos/${n}.mp4`,
+  poster: `/videos/posters/${n}.jpg`,
+  videoMobile: `/videos/${n}-m.mp4`,
+  posterMobile: `/videos/posters/${n}-m.jpg`,
+});
 
 export const BEATS: Beat[] = [
   { id: "door", ...clip("02-door") },
